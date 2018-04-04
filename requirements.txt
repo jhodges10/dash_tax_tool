@@ -1,10 +1,10 @@
 requests
 flask
 flask-table
-dash # The core dash backend
-dash-renderer  # The dash front-end
-dash-html-components# HTML components
-dash-core-components  # Supercharged components
-plotly # Plotly graphing library used in examples
+dash
+dash-renderer
+dash-html-components
+dash-core-components
 dash-table-experiments
+plotly
 pandas
