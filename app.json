@@ -1,0 +1,7 @@
+{
+  "name": "Name your app",
+  "description": "Describe your project",
+  "repository": "https://github.com/your-repo-address",
+  "logo": "Pick a logo",
+  "keywords": ["Slack", "Paths", "Slash commands"]
+}
