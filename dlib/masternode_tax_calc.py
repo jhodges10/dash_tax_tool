@@ -1,5 +1,5 @@
 import datetime
-from crypto_compare import CryptoCompare
+from dlib.crypto_compare import CryptoCompare
 from dlib import wallet_insights as wi
 
 
