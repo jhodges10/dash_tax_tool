@@ -31,4 +31,6 @@ def generate_cost_basis(address='XxVpWcsE92qWTrZWfmGTqrCzpBaKhRf2tX'):
 
 #mn_address = 'XxVpWcsE92qWTrZWfmGTqrCzpBaKhRf2tX'
 #mn_address = 'XnhM7gomoHnYC54LipsXKoancngQDNsdwi'
-mn_address = 'XpKcgRUXZuM7M7JadAo5o7Q2XKes8nQfd5'
+#mn_address = 'XpKcgRUXZuM7M7JadAo5o7Q2XKes8nQfd5'
+
+#print(generate_cost_basis())

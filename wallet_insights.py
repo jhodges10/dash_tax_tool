@@ -7,6 +7,7 @@ import random
 def fetch_wallet(address):
     url_1 = "https://insight.dashevo.org/insight-api-dash/addr/{}".format(address)
     url_2 = "https://insight.dash.org/insight-api-dash/addr/{}".format(address)
+    url_3 = "http://insight.masternode.io:3000/api/addr/{}".format(address)
 
     urls = [url_1, url_2]
 
@@ -27,7 +28,9 @@ def fetch_transaction_history(txid, address):
 
     url_1 = "https://insight.dashevo.org/insight-api-dash/tx/{}".format(txid)
     url_2 = "https://insight.dash.org/insight-api-dash/tx/{}".format(txid)
+    url_3 = "http://insight.masternode.io:3000/api/tx/{}".format(txid)
     urls = [url_1, url_2]
+
     url_selected = random.choice(urls)
 
     response = requests.request("GET", url_selected)
@@ -74,7 +77,9 @@ def build_simple_wallet_history(address, mn=True):
 
     cleaned_transactions = []
 
-    for txid in transaction_list:
+    for count, txid in enumerate(transaction_list):
+        count += 1
+        print("Checking txid: " + str(txid))
         transaction_info = fetch_transaction_history(txid, address)
         if transaction_info is not False:
             cleaned_transactions.append(transaction_info)
