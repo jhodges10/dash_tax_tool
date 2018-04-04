@@ -5,6 +5,7 @@ import dash_html_components as html
 import dash_table_experiments as dt
 import pandas as pd
 from dlib import masternode_tax_calc
+import os
 
 
 app = dash.Dash()
@@ -71,4 +72,5 @@ app.css.append_css({
 })
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    port_config = int(os.getenv('PORT', 5000))
+    app.run_server(host='0.0.0.0', port=port_config, debug=True)
