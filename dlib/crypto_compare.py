@@ -2,6 +2,7 @@ import requests
 import json
 import os
 import time
+import functools
 
 
 class CryptoCompare:
@@ -10,7 +11,7 @@ class CryptoCompare:
 
     @staticmethod
     def fetch_price_history_dict(use_cache=True, days_to_fetch=1200):
-        storage_location = "../_cache/price_history.json"
+        storage_location = "./_cache/price_history.json"
 
         # TODO add age of cache as conditional element
         #file_age = time.strftime('%m/%d/%Y', time.gmtime(os.path.getmtime(storage_location)))
@@ -30,7 +31,10 @@ class CryptoCompare:
                 price = day['close']
                 day_and_price_dict[date] = price
 
-            CryptoCompare.write_json(day_and_price_dict, "price_history")
+            try:
+                CryptoCompare.write_json(day_and_price_dict, "price_history")
+            except:
+                print("Running on Heroku, memoizing instead.")
 
         return day_and_price_dict
 
@@ -47,9 +51,10 @@ class CryptoCompare:
             return None
 
     @staticmethod
+    @functools.lru_cache(maxsize=128)
     def match_day_to_price(date):
         try:
-            day_and_price = CryptoCompare.fetch_price_history_dict(use_cache=True)
+            day_and_price = CryptoCompare.fetch_price_history_dict(use_cache=False)
             price = day_and_price[date]
         except KeyError as e:
             print("Error: " + str(e))

@@ -1,7 +1,7 @@
 # import things
-from flask import Flask, render_template
 import os
-import masternode_tax_calc
+from flask import Flask, render_template
+from dlib import masternode_tax_calc
 
 app = Flask(__name__)
 

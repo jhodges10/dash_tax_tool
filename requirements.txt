@@ -1,3 +1,9 @@
 requests
 flask
 flask-table
+dash==0.21.0  # The core dash backend
+dash-renderer==0.11.3  # The dash front-end
+dash-html-components==0.9.0  # HTML components
+dash-core-components==0.21.1  # Supercharged components
+plotly==2.2.3  # Plotly graphing library used in examples
+dash-table-experiments

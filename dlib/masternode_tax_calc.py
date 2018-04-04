@@ -1,6 +1,6 @@
-import wallet_insights as wi
 import datetime
 from crypto_compare import CryptoCompare
+from dlib import wallet_insights as wi
 
 
 def get_cb_trans(address):
@@ -21,6 +21,16 @@ def process_cb_trans(cb_trans):
         tx.update({'date': date})
 
     return cb_trans
+
+
+def convert_list_to_dict(cb_trans):
+    cb_dict = {}
+    for tx in cb_trans:
+        cb_dict[tx['date']] = {'amount': tx['amount'],
+                               'type': tx['type'],
+                               'cost_basis': tx['cost_basis']}
+
+    return cb_dict
 
 
 def generate_cost_basis(address='XxVpWcsE92qWTrZWfmGTqrCzpBaKhRf2tX'):
