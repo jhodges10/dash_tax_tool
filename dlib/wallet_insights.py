@@ -2,14 +2,17 @@ import requests
 import json
 from json import JSONDecodeError
 import random
+from multiprocessing import Pool
+from functools import partial
+from dlib import masternode_tax_calc as mtx
 
 # Insight API
 def fetch_wallet(address):
     url_1 = "https://insight.dashevo.org/insight-api-dash/addr/{}".format(address)
     url_2 = "https://insight.dash.org/insight-api-dash/addr/{}".format(address)
     url_3 = "http://insight.masternode.io:3000/api/addr/{}".format(address)
-
-    urls = [url_1, url_2]
+    url_4 = "http://165.227.209.32:3001/insight-api-dash/addr{}".format(address)
+    urls = [url_1, url_2, url_3]
 
     url_selected = random.choice(urls)
 
@@ -19,7 +22,7 @@ def fetch_wallet(address):
         # print(transaction_list)
         return transaction_list
 
-    except JSONDecodeError:
+    except KeyError:
         return []
 
 
@@ -29,7 +32,8 @@ def fetch_transaction_history(txid, address):
     url_1 = "https://insight.dashevo.org/insight-api-dash/tx/{}".format(txid)
     url_2 = "https://insight.dash.org/insight-api-dash/tx/{}".format(txid)
     url_3 = "http://insight.masternode.io:3000/api/tx/{}".format(txid)
-    urls = [url_1, url_2]
+    url_4 = "http://165.227.209.32:3001/insight-api-dash/tx/{}".format(txid)
+    urls = [url_1, url_2, url_3]
 
     url_selected = random.choice(urls)
 
@@ -54,9 +58,11 @@ def fetch_transaction_history(txid, address):
                         trans_dict = {
                             "amount": amount_to_address,
                             "time": transaction_info['time'],
+                            "date": mtx.convert_timestamp_to_day(transaction_info['time']),
                             "type": trans_type
                         }
                         matching_transactions = trans_dict
+                        print(matching_transactions)
                     else:
                         pass
                 except KeyError or UnboundLocalError:
@@ -72,17 +78,28 @@ def fetch_transaction_history(txid, address):
 
 
 # Insight API
-def build_simple_wallet_history(address, mn=True):
+def build_simple_wallet_history(address):
     transaction_list = fetch_wallet(address)
+    num_of_processes = 4
+    p = Pool(num_of_processes)
+    matching_tx = p.map(partial(fetch_transaction_history, address=address), transaction_list)
+    p.close()
+    p.join()
 
     cleaned_transactions = []
-
+    '''
     for count, txid in enumerate(transaction_list):
         count += 1
         print("Checking txid: " + str(txid))
         transaction_info = fetch_transaction_history(txid, address)
         if transaction_info is not False:
             cleaned_transactions.append(transaction_info)
+        else:
+            continue
+    '''
+    for tx_info in matching_tx:
+        if tx_info is not False:
+            cleaned_transactions.append(tx_info)
         else:
             continue
 

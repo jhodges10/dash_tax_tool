@@ -10,7 +10,8 @@ class CryptoCompare:
         pass
 
     @staticmethod
-    def fetch_price_history_dict(use_cache=True, days_to_fetch=1200):
+    @functools.lru_cache(maxsize=24)
+    def fetch_price_history_dict(use_cache=False, days_to_fetch=1200):
         storage_location = "./_cache/price_history.json"
 
         # TODO add age of cache as conditional element
@@ -51,7 +52,6 @@ class CryptoCompare:
             return None
 
     @staticmethod
-    @functools.lru_cache(maxsize=128)
     def match_day_to_price(date):
         try:
             day_and_price = CryptoCompare.fetch_price_history_dict(use_cache=False)
