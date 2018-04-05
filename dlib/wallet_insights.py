@@ -47,7 +47,7 @@ def fetch_transaction_history(txid, address):
             for vout in transaction_info['vout']:
                 # print(vout.keys())
                 amount_to_address = float(vout['value'])
-                if int(round(amount_to_address)) >= 3:
+                if int(round(amount_to_address)) >= 5:
                     trans_type = 'superblock_payment'
                 elif int(round(amount_to_address)) >= 1:
                     trans_type = 'mn_payment'
