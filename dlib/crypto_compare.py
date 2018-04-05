@@ -11,7 +11,7 @@ class CryptoCompare:
 
     @staticmethod
     @functools.lru_cache(maxsize=24)
-    def fetch_price_history_dict(use_cache=False, days_to_fetch=1200):
+    def fetch_price_history_dict(use_cache=False, days_to_fetch=1500):
         storage_location = "./_cache/price_history.json"
 
         # TODO add age of cache as conditional element

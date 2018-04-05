@@ -47,7 +47,7 @@ def fetch_transaction_history(txid, address):
             for vout in transaction_info['vout']:
                 # print(vout.keys())
                 amount_to_address = float(vout['value'])
-                if int(round(amount_to_address)) >= 3:
+                if int(round(amount_to_address)) >= 5:
                     trans_type = 'superblock_payment'
                 elif int(round(amount_to_address)) >= 1:
                     trans_type = 'mn_payment'
@@ -88,13 +88,19 @@ def fetch_transaction_history(txid, address):
 
     except JSONDecodeError:
         print("Error with that transaction")
-        return False
+        null_dict = {
+            "amount": 'Null',
+            "time": 'Null',
+            "date": 'Null',
+            "type": 'Null'
+        }
+        return null_dict
 
 
 # Insight API
 def build_simple_wallet_history(address):
     transaction_list = fetch_wallet(address)
-    num_of_processes = 4
+    num_of_processes = 12
     p = Pool(num_of_processes)
     matching_tx = p.map(partial(fetch_transaction_history, address=address), transaction_list)
     p.close()

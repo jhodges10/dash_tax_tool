@@ -1,6 +1,7 @@
 import datetime
 from dlib.crypto_compare import CryptoCompare
 from dlib import wallet_insights as wi
+import functools
 
 
 def get_cb_trans(address):
@@ -10,7 +11,11 @@ def get_cb_trans(address):
 
 
 def convert_timestamp_to_day(timestamp):
-    return datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d')
+    try:
+        output = datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d')
+    except TypeError:
+        output = 'Null'
+    return output
 
 
 def process_cb_trans(cb_trans):
@@ -33,6 +38,7 @@ def convert_list_to_dict(cb_trans):
     return cb_dict
 
 
+@functools.lru_cache(maxsize=5)
 def generate_cost_basis(address='XxVpWcsE92qWTrZWfmGTqrCzpBaKhRf2tX'):
     trans = get_cb_trans(address)
     cost_basis = process_cb_trans(trans)
@@ -42,5 +48,3 @@ def generate_cost_basis(address='XxVpWcsE92qWTrZWfmGTqrCzpBaKhRf2tX'):
 #mn_address = 'XxVpWcsE92qWTrZWfmGTqrCzpBaKhRf2tX'
 #mn_address = 'XnhM7gomoHnYC54LipsXKoancngQDNsdwi'
 #mn_address = 'XpKcgRUXZuM7M7JadAo5o7Q2XKes8nQfd5'
-
-#print(generate_cost_basis())
