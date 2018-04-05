@@ -32,15 +32,16 @@ app.layout = html.Div([
         filterable=True,
         sortable=True,
         selected_row_indices=[],
-        id='table'
+        id='table-mn'
     ),
 
     html.Div(id='tax-calc'),
 ], className='container')
 
+
 # Table and data from input field
 @app.callback(
-    Output('table', 'rows'),
+    Output('table-mn', 'rows'),
     [Input(component_id='address', component_property='value')])
 def get_data_object(address):
     cost_basis = masternode_tax_calc.generate_cost_basis(address)
@@ -51,10 +52,11 @@ def get_data_object(address):
     df = df.to_dict('records')
     return df
 
+
 # Graphing
 @app.callback(
     Output('tax-graph', 'figure'),
-    [Input('table', 'rows')])
+    [Input('table-mn', 'rows')])
 def update_figure(rows):
     dff = pd.DataFrame(rows)
     figure = {
@@ -66,6 +68,7 @@ def update_figure(rows):
         }
     }
     return figure
+
 
 app.css.append_css({
     'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'

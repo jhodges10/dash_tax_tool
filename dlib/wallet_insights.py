@@ -58,7 +58,6 @@ def fetch_transaction_history(txid, address):
                         trans_dict = {
                             "amount": amount_to_address,
                             "time": transaction_info['time'],
-                            "date": mtx.convert_timestamp_to_day(transaction_info['time']),
                             "type": trans_type
                         }
                         matching_transactions = trans_dict
@@ -68,7 +67,22 @@ def fetch_transaction_history(txid, address):
                 except KeyError or UnboundLocalError:
                     continue
         else:
-            pass
+            for vout in transaction_info['vout']:
+                amount_to_address = float(vout['value'])
+                trans_type = 'normal'
+                try:
+                    if address in vout['scriptPubKey']['addresses']:
+                        trans_dict = {
+                            "amount": amount_to_address,
+                            "time": transaction_info['time'],
+                            "type": trans_type
+                        }
+                        matching_transactions = trans_dict
+                        print(matching_transactions)
+                    else:
+                        pass
+                except KeyError or UnboundLocalError:
+                    continue
 
         return matching_transactions
 
