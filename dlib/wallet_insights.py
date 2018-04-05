@@ -74,13 +74,19 @@ def fetch_transaction_history(txid, address):
 
     except JSONDecodeError:
         print("Error with that transaction")
-        return False
+        null_dict = {
+            "amount": 'Null',
+            "time": 'Null',
+            "date": 'Null',
+            "type": 'Null'
+        }
+        return null_dict
 
 
 # Insight API
 def build_simple_wallet_history(address):
     transaction_list = fetch_wallet(address)
-    num_of_processes = 4
+    num_of_processes = 12
     p = Pool(num_of_processes)
     matching_tx = p.map(partial(fetch_transaction_history, address=address), transaction_list)
     p.close()

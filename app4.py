@@ -66,10 +66,13 @@ def get_address_info(n_clicks, value):
         cost_basis = masternode_tax_calc.generate_cost_basis(value)
     except JSONDecodeError:
         cost_basis = {
-            'date': '2018-01-01'
-            'cost_basis': '1250.58'
+            'amount': 1.0,
+            'time': 15223753709,
+            'date': '2018-01-01',
+            'type': 'normal',
+            'cost_basis': '1250.58',
         }
-    df = pd.DataFrame.from_records(cost_basis)
+    df = pd.DataFrame.from_records(cost_basis).sort_values(by=['date'], ascending=False)
     """
     For user selections, return the relevant in-memory data frame.
     """
