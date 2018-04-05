@@ -12,7 +12,7 @@ def fetch_wallet(address):
     url_2 = "https://insight.dash.org/insight-api-dash/addr/{}".format(address)
     url_3 = "http://insight.masternode.io:3000/api/addr/{}".format(address)
     url_4 = "http://165.227.209.32:3001/insight-api-dash/addr{}".format(address)
-    urls = [url_1, url_2, url_3]
+    urls = [url_1, url_2, url_3, url_4]
 
     url_selected = random.choice(urls)
 
@@ -33,7 +33,7 @@ def fetch_transaction_history(txid, address):
     url_2 = "https://insight.dash.org/insight-api-dash/tx/{}".format(txid)
     url_3 = "http://insight.masternode.io:3000/api/tx/{}".format(txid)
     url_4 = "http://165.227.209.32:3001/insight-api-dash/tx/{}".format(txid)
-    urls = [url_1, url_2, url_3]
+    urls = [url_1, url_2, url_3, url_4]
 
     url_selected = random.choice(urls)
 
