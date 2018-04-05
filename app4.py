@@ -66,11 +66,11 @@ def get_address_info(n_clicks, value):
         cost_basis = masternode_tax_calc.generate_cost_basis(value)
     except JSONDecodeError:
         cost_basis = {
-            'amount': 1.0,
+            'amount': 0,
             'time': 15223753709,
             'date': '2018-01-01',
             'type': 'normal',
-            'cost_basis': '1250.58',
+            'cost_basis': '0',
         }
     df = pd.DataFrame.from_records(cost_basis).sort_values(by=['date'], ascending=False)
     """
@@ -87,7 +87,7 @@ def update_figure(rows):
     dff = pd.DataFrame(rows)
     figure = {
         'data': [
-            {'x': dff.date, 'y': dff.cost_basis, 'type': 'line', 'name': "Dash MN Count"},
+            {'x': dff.date, 'y': dff.cost_basis, 'type': 'line', 'name': "Dash Tax Cost Basis"},
         ],
         'layout': {
             'title': "Cost Basis"

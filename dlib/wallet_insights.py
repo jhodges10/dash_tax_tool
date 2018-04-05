@@ -69,7 +69,10 @@ def fetch_transaction_history(txid, address):
         else:
             for vout in transaction_info['vout']:
                 amount_to_address = float(vout['value'])
-                trans_type = 'normal'
+                if int(round(amount_to_address)) == 1000:
+                    trans_type = 'mn_setup'
+                else:
+                    trans_type = 'normal'
                 try:
                     if address in vout['scriptPubKey']['addresses']:
                         trans_dict = {
@@ -100,7 +103,7 @@ def fetch_transaction_history(txid, address):
 # Insight API
 def build_simple_wallet_history(address):
     transaction_list = fetch_wallet(address)
-    num_of_processes = 12
+    num_of_processes = 6
     p = Pool(num_of_processes)
     matching_tx = p.map(partial(fetch_transaction_history, address=address), transaction_list)
     p.close()
