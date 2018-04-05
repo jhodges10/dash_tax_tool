@@ -1,6 +1,6 @@
 requests
-flask
-flask-table
+#flask
+#flask-table
 dash
 dash-renderer
 dash-html-components
