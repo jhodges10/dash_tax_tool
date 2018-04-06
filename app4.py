@@ -87,7 +87,7 @@ def update_figure(rows):
     dff = pd.DataFrame(rows)
     figure = {
         'data': [
-            {'x': dff.date, 'y': dff.cost_basis, 'type': 'line', 'name': "Dash Tax Cost Basis"},
+            {'x': dff.date, 'y': dff.cost_basis, 'type': 'bar', 'name': "Dash Tax Cost Basis"},
         ],
         'layout': {
             'title': "Cost Basis"
