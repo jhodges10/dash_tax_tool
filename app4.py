@@ -84,7 +84,7 @@ def get_address_info(n_clicks, value):
     Output('tax-graph', 'figure'),
     [Input('tx_table', 'rows')])
 def update_figure(rows):
-    dff = pd.DataFrame(rows)
+    dff = pd.DataFrame(rows).sort_values(by=['date'], ascending=False)
     figure = {
         'data': [
             {'x': dff.date, 'y': dff.cost_basis, 'type': 'bar', 'name': "Dash Tax Cost Basis"},
