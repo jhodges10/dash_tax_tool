@@ -104,8 +104,11 @@ external_js = ['https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/ma
 for js in external_js:
     app.scripts.append_script({'external_url': js})
 
+app.css.append_css({'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'})
+
 # Loading screen CSS
 app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/brPBPO.css"})
+
 
 '''
 dcc._css_dist[0]['relative_package_path'].append('dash-tax.css')
@@ -115,6 +118,8 @@ app.css.append_css({
     'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'
 })
 '''
+
+
 
 
 if __name__ == '__main__':

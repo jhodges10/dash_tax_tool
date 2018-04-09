@@ -71,25 +71,23 @@ class CryptoCompare:
 
     @staticmethod
     def write_json(data, filename):
-        cur_dir = os.getcwd()
         cache_dir = './_cache/'
+        dirname = os.path.dirname(os.path.abspath(__file__))
+        absolute_cache_dir = os.path.abspath(os.path.join(dirname, cache_dir))
         filename = filename + '.json'
-        absolute_cache_dir = os.path.abspath(os.path.join(cur_dir, cache_dir))
-        absolute_file_path = os.path.join(absolute_cache_dir, filename)
+        absolute_file_path = os.path.abspath(os.path.join(absolute_cache_dir, filename))
+
         with open(absolute_file_path, 'w') as json_stuff:
             json.dump(data, json_stuff)
         return True
 
     @staticmethod
     def read_json(filename):
-        # Made this file path HARD CODED from dash_ninja.py
-        cur_dir = os.getcwd()
         cache_dir = './_cache/'
+        dirname = os.path.dirname(os.path.abspath(__file__))
+        absolute_cache_dir = os.path.abspath(os.path.join(dirname, cache_dir))
         filename = filename + '.json'
-        absolute_cache_dir = os.path.abspath(os.path.join(cur_dir, cache_dir))
-        absolute_file_path = os.path.join(absolute_cache_dir, filename)
-
-        #print(absolute_file_path)
+        absolute_file_path = os.path.abspath(os.path.join(absolute_cache_dir, filename))
 
         try:
             with open(absolute_file_path, 'r') as json_stuff:
